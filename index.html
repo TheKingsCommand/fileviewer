@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <style>
+  .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      text-align: center;
+      font-size: 16px;
+      cursor: pointer;
+      border: 1px solid black;
+  }
+  .button:hover {
+      background-color: green;
+  }
+  </style>
+  <body>
+    <h2>
+      Image loop test
+      <button class="button" type="reset" id="start" onclick="doit('start')">
+        START
+      </button>
+      <button class="button" type="reset" id="find" onclick="findit()">
+        FIND
+      </button>
+    </h2>
+    <img id="myImage" src= "test.jpg" alt="Trulli" width="500" height="333">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <script>
+      // const fs = require('fs');
+      // const path = require('path');
+      // In newer Node.js versions where process is already global this isn't necessary.
+      // var process = require("process");
+
+      var updater = ["test.jpg", "test2.jpg", "test3.jpg"];
+      //update(0);
+      function doit(origin){
+        update(0);
+      }
+      function findit(){
+        updater = dirtest();
+        update(0);
+      }
+
+      function update(i){
+        //initiate time
+        if (i == updater.length){
+          i = 0;
+        }
+        var tmp = i + 1;
+        document.getElementById('myImage').src = updater[i];
+        var t = setTimeout(function(){ update(tmp) }, 5000);
+      }
+
+      function dirtest() {
+        var pdfFilesDirectory = '.';
+
+// get auto-generated page
+$.ajax({url: pdfFilesDirectory}).then(function(html) {
+    // create temporary DOM element
+    var document = $(html);
+
+    // find all links ending with .pdf
+    document.find('a[href$=".jpg"]').each(function() {
+        var jpgName = $(this).text();
+        var jpgUrl = $(this).attr('href');
+
+        // do what you want here
+    })
+});
+      }
+
+      function returnimages(dirname=".") {
+        var pattern="(\.jpg$)|(\.png$)|(\.jpeg$)|(\.gif$)"; //valid image extensions
+        var files = [];
+        var curimage=0;
+        var rawfiles = fs.readdirSync('.');
+        rawfiles.forEach(function (file, index) {
+          if(eregi($pattern, $file)){ //if this file is a valid image
+            //Output it as a JavaScript array element
+            //echo 'galleryarray['.$curimage.']="'.$file .'";';
+            files.push($file);
+          }
+        });
+        return($files);
+      }
+    </script>
+  </body>
+
+</html>
